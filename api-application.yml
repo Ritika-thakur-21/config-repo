@@ -1,23 +1,22 @@
 spring:
   application:
-    name: APIGATEWAY
+    name: api-gateway
 
   cloud:
     discovery:
       enabled: true
-    gateway:
-      server:
-        webflux:
-          routes:
-            - id: movie-service
-              uri: lb://MICROSERVICES-MOVIE-SERVICE
-              predicates:
-                - Path=/movies/**
 
-            - id: booking-service
-              uri: lb://MICROSERVICES-BOOKING-SERVICE
-              predicates:
-                - Path=/bookings/**
+    gateway:
+      routes:
+        - id: movie-service
+          uri: lb://MOVIE-SERVICE-APPLICATION
+          predicates:
+            - Path=/movies/**
+
+        - id: booking-service
+          uri: lb://BOOKING-SERVICE-APPLICATION
+          predicates:
+            - Path=/bookings/**
 
 server:
   port: 8080
