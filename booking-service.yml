@@ -5,6 +5,9 @@ spring:
   application:
     name: booking-service
 
+  config:
+    import: optional:configserver:http://localhost:8888
+
 eureka:
   client:
     service-url:
@@ -19,3 +22,13 @@ management:
 logging:
   level:
     root: INFO
+
+# Circuit Breaker Configuration
+resilience4j:
+  circuitbreaker:
+    instances:
+      movieService:
+        slidingWindowSize: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
